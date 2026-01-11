@@ -1,10 +1,8 @@
 import sqlite3
 
-# Database connection (SQLite file ban jayegi)
 connect = sqlite3.connect("employee.db")
 cursor = connect.cursor()
 
-# ---------------- CREATE TABLE ----------------
 def table():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS emplyee (
@@ -12,13 +10,11 @@ def table():
             ID INTEGER,
             Age INTEGER,
             Salary INTEGER,
-            Position Text
-        );
+            Position Text );
     ''')
     print("Table Created Successfully")
     connect.commit()
 
-# ---------------- INSERT DATA ----------------
 def data_employee():
     print("Input the employee data")
     name = input("Enter Name: ")
@@ -29,20 +25,17 @@ def data_employee():
 
     cursor.execute(
         '''INSERT INTO emplyee (Name, ID, Age, Salary, Position) VALUES (?, ?, ?, ?, ?)''',
-        (name, id, age, salary, position)
-    )
+        (name, id, age, salary, position))
     print("Data Created Successfully")
     connect.commit()
 
-# ---------------- VIEW DATA ----------------
 def view_employee():
     cursor.execute('''SELECT * FROM emplyee''')
-    print("--- Query Results ---")
+    print("The data of employees are: ")
     rows = cursor.fetchall()
     for row in rows:
         print(row)
 
-# ---------------- UPDATE DATA ----------------
 def update_employee():
     id = int(input("Enter ID to update: "))
     name = input("Enter new Name: ")
@@ -52,35 +45,21 @@ def update_employee():
 
     cursor.execute(
         '''UPDATE emplyee SET Name = ?, Age = ?, Salary = ?, Position = ? WHERE ID = ?''',
-        (name, age, salary, position, id)
-    )
+        (name, age, salary, position, id) )
     print("Data Updated Successfully")
     connect.commit()
 
-# ---------------- DELETE DATA ----------------
 def delete_employee():
     id = int(input("Enter ID to delete: "))
-    cursor.execute(
-        '''DELETE FROM emplyee WHERE ID = ?''',
-        (id,)
-    )
+    cursor.execute('''DELETE FROM emplyee WHERE ID = ?''', (id,) )
     print("Data Deleted Successfully")
     connect.commit()
 
-# ---------------- MAIN MENU ----------------
 def main():
     table()  
-
     while True:
-        print("""
-1. Add Employee
-2. View Employees
-3. Update Employee
-4. Delete Employee
-5. Exit
-""")
+        print("1. Add Employee\n 2. View Employees\n3. Update Employee \n4. Delete Employee \n5. Exit")
         choice = int(input("Enter your choice: "))
-
         match choice:
             case 1:
                 data_employee()
@@ -98,3 +77,4 @@ def main():
                 print("Invalid choice")
 
 main()
+
