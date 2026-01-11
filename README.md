@@ -35,7 +35,7 @@ ID	INTEGER
 Age	INTEGER
 Salary	INTEGER
 Position	TEXT
-⚙️ Features
+ Features
 
 ✅ Create employee table automatically
 ✅ Add new employee
